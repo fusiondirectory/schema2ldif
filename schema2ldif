@@ -15,7 +15,7 @@ use Pod::Usage;
 
 my $cn      = "" ;
 my $branch  = "cn=schema,cn=config";
-my $help = 0;
+my $help    = 0;
 
 # Process command-line
 
@@ -34,7 +34,7 @@ if ($cn eq '') {
   $cn = $ARGV[0];
   die "Error: $cn is not a file\n" unless -f $cn;
 
-  $cn =~ s|^.+/([^/]+)\.[^.]+$|$1|;
+  $cn =~ s|^(.*/)?([^/]+)\.[^.]+$|$2|;
 }
 
 # [openldap.ldif]
