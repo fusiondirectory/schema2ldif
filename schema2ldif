@@ -2,11 +2,8 @@
 
 #
 # schema2ldif: Tool for converting OpenLDAP-style schemas to the LDIF format
-# -----------
-# Basic usage
-# -----
+# See pod documentation at the end of the file
 #
-# schema2ldif foo.schema > foo.ldif
 
 use strict;
 use warnings;
@@ -16,21 +13,16 @@ use 5.008;
 use Getopt::Long;
 use Pod::Usage;
 
-my $mode    = "static";
 my $cn      = "" ;
 my $branch  = "cn=schema,cn=config";
-my $order   = "";
 my $help = 0;
 
 # Process command-line
 
 GetOptions(
   'help|?'    => \$help,
-  'modify'    => sub {$mode = "modify"},
-  'replace'   => sub {$mode = "replace"},
   'cn=s'      => \$cn,
   'branch=s'  => \$branch,
-  'order|n'   => \$order,
 ) or pod2usage(2);
 pod2usage(1) if $help;
 
@@ -49,36 +41,17 @@ if ($cn eq '') {
 #   In addition to the actual schema directives, the file needs a small
 #     header to make it a valid LDAP entry. This header must provide the
 #     dn of the entry, the objectClass, and the cn, as shown here:
-if ($mode eq "static") {
-  # Header for static schema
-  # used to drop into a file that server picks up on start
-  print "dn: cn=$cn,$branch\n";
-  print "objectClass: olcSchemaConfig\n";
-  print "cn: $cn\n";
-
-} elsif ($mode eq "modify") {
-  # Header for schema that is being uploaded to running server
-  print "dn: cn=$cn,$branch\n";
-  print "changetype: modify\n";
-
-} elsif ($mode eq "replace" ) {
-  # Header for schema that is being uploaded to running server
-  print "dn: cn={$order}$cn,$branch\n";
-  print "changetype: modify\n";
-
-} else {
-  die ("Unknown mode $mode\n");
-}
+print "dn: cn=$cn,$branch\n";
+print "objectClass: olcSchemaConfig\n";
+print "cn: $cn\n";
 
 # Reading the input schema file in loop
 # processing definitions
 while (<>) {
   # Comments
   if (/^\s*#/) {
-    # In static mode pass the comments to output file
-    print if ($mode eq "static");
-    # the comments are ignored in other modes as they make
-    # problems when used with some LDAP clients
+    # Pass the comments to output file
+    print;
     next;
   }
 
@@ -128,10 +101,7 @@ schema2ldif [options] [FILE] > file.ldif
  Options:
    -h, --help             brief help message
    -c, --cn=CN            use CN as cn for the schema (mandatory if no file provided)
-   -r, --replace
-   -m, --modify
    -b, --branch           set an other branch than cn=schema,cn=config
-   -n, --order
 
 =head1 OPTIONS
 
