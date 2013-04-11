@@ -1,0 +1,42 @@
+This is a tool for converting .schema file to .ldif file, in order to use cn=config backend instead of slapd.conf
+It's easy to use:
+  schema2ldif < myschema.schema > myschema.ldif
+
+It was orignally written by OpenSides for FusionDirectory.
+It's written in perl.
+
+It follows these directions found in schema/openldap.ldif :
+
+# This openldap.ldif file is provided as a demonstration of how to
+# convert a *.schema file into *.ldif format. The key points:
+#   In LDIF, a blank line terminates an entry. Blank lines in a *.schema
+#     file should be replaced with a single '#' to turn them into
+#     comments, or they should just be removed.
+#   In addition to the actual schema directives, the file needs a small
+#     header to make it a valid LDAP entry. This header must provide the
+#     dn of the entry, the objectClass, and the cn, as shown here:
+#
+dn: cn=openldap,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: openldap
+#
+# The schema directives need to be changed to LDAP Attributes.
+#   First a basic string substitution can be done on each of the keywords:
+#     objectIdentifier -> olcObjectIdentifier:
+#     objectClass -> olcObjectClasses:
+#     attributeType -> olcAttributeTypes:
+#   Then leading whitespace must be fixed. The slapd.conf format allows
+#     tabs or spaces to denote line continuation, while LDIF only allows
+#     the space character.
+#   Also slapd.conf preserves the continuation character, while LDIF strips
+#     it out. So a single TAB/SPACE in slapd.conf must be replaced with
+#     two SPACEs in LDIF, otherwise the continued text may get joined as
+#     a single word.
+#   The directives must be listed in a proper sequence:
+#     All olcObjectIdentifiers must be first, so they may be referenced by
+#        any following definitions.
+#     All olcAttributeTypes must be next, so they may be referenced by any
+#        following objectClass definitions.
+#     All olcObjectClasses must be after the olcAttributeTypes.
+#   And of course, any superior must occur before anything that inherits
+#     from it.
