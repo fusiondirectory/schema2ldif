@@ -1,0 +1,150 @@
+#!/usr/bin/perl
+
+#
+# schema2ldif: Tool for converting OpenLDAP-style schemas to the LDIF format
+# -----------
+# Basic usage
+# -----
+#
+# schema2ldif foo.schema > foo.ldif
+
+use strict;
+use warnings;
+
+use 5.008;
+
+use Getopt::Long;
+use Pod::Usage;
+
+my $mode    = "static";
+my $cn      = "" ;
+my $branch  = "cn=schema,cn=config";
+my $order   = "";
+my $help = 0;
+
+# Process command-line
+
+GetOptions(
+  'help|?'    => \$help,
+  'modify'    => sub {$mode = "modify"},
+  'replace'   => sub {$mode = "replace"},
+  'cn=s'      => \$cn,
+  'branch=s'  => \$branch,
+  'order|n'   => \$order,
+) or pod2usage(2);
+pod2usage(1) if $help;
+
+
+if ($cn eq '') {
+  if (@ARGV <= 0) {
+    pod2usage(2);
+  }
+  $cn = $ARGV[0];
+  die "Error: $cn is not a file\n" unless -f $cn;
+
+  $cn =~ s|^.+/([^/]+)\.[^.]+$|$1|;
+}
+
+# [openldap.ldif]
+#   In addition to the actual schema directives, the file needs a small
+#     header to make it a valid LDAP entry. This header must provide the
+#     dn of the entry, the objectClass, and the cn, as shown here:
+if ($mode eq "static") {
+  # Header for static schema
+  # used to drop into a file that server picks up on start
+  print "dn: cn=$cn,$branch\n";
+  print "objectClass: olcSchemaConfig\n";
+  print "cn: $cn\n";
+
+} elsif ($mode eq "modify") {
+  # Header for schema that is being uploaded to running server
+  print "dn: cn=$cn,$branch\n";
+  print "changetype: modify\n";
+
+} elsif ($mode eq "replace" ) {
+  # Header for schema that is being uploaded to running server
+  print "dn: cn={$order}$cn,$branch\n";
+  print "changetype: modify\n";
+
+} else {
+  die ("Unknown mode $mode\n");
+}
+
+# Reading the input schema file in loop
+# processing definitions
+while (<>) {
+  # Comments
+  if (/^\s*#/) {
+    # In static mode pass the comments to output file
+    print if ($mode eq "static");
+    # the comments are ignored in other modes as they make
+    # problems when used with some LDAP clients
+    next;
+  }
+
+  chomp;
+
+# [openldap.ldif]
+#   In LDIF, a blank line terminates an entry. Blank lines in a *.schema
+#     file should be replaced with a single '#' to turn them into
+#     comments, or they should just be removed.
+  next if m/^$/;
+
+# [openldap.ldif]
+#   First a basic string substitution can be done on each of the keywords:
+#     objectIdentifier -> olcObjectIdentifier:
+#     objectClass -> olcObjectClasses:
+#     attributeType -> olcAttributeTypes:
+  s/objectidentifier/olcObjectIdentifier:/i;
+  s/attributetype/olcAttributeTypes:/i;
+  s/objectclass/olcObjectClasses:/i;
+
+# [openldap.ldif]
+#   Then leading whitespace must be fixed. The slapd.conf format allows
+#     tabs or spaces to denote line continuation, while LDIF only allows
+#     the space character.
+#   Also slapd.conf preserves the continuation character, while LDIF strips
+#     it out. So a single TAB/SPACE in slapd.conf must be replaced with
+#     two SPACEs in LDIF, otherwise the continued text may get joined as
+#     a single word.
+  s/^\s+/  /;
+
+  print;
+  print "\n";
+}
+
+__END__
+
+=head1 NAME
+
+schema2ldif - Tool for converting OpenLDAP-style schemas to the LDIF format
+If B<FILE> is not provided, will read from standard input. In this case, cn option is mandatory.
+Otherwise, the name of the file (without extension) will be used as cn
+
+=head1 SYNOPSIS
+
+schema2ldif [options] [FILE] > file.ldif
+
+ Options:
+   -h, --help             brief help message
+   -c, --cn=CN            use CN as cn for the schema (mandatory if no file provided)
+   -r, --replace
+   -m, --modify
+   -b, --branch           set an other branch than cn=schema,cn=config
+   -n, --order
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--help>
+
+Print a brief help message and exits.
+
+=back
+
+=head1 DESCRIPTION
+
+B<schema2ldif> will read the given input file and convert it to an LDIF file that you can insert into you LDAP directory
+
+=cut
