@@ -128,4 +128,16 @@ Please report any bugs, or post any suggestions, to the fusiondirectory mailing 
 
 Come Bernigaud
 
+=head1 LICENCE AND COPYRIGHT
+
+=over 2
+
+=item Copyright (C) 2013 FusionDirectory project
+
+=back
+
+License BSD
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the LICENSE file for more details.
+
 =cut
