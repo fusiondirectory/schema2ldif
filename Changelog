@@ -1,0 +1,10 @@
+Schema2ldif changelog
+=========================
+
+* Schema2ldif 1.0
+
+[Fix] Bugs #2282: cn inside schema conversion should not have .schema behind schema name
+[Fix] Bugs #2337: nova_openldap schema failed insertion
+[Fix] Bugs #2368: Doesn't work for schac.schema
+[Fix] Wishlist #2283: A license should be chosen for the tool
+
