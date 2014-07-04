@@ -1,6 +1,10 @@
 Schema2ldif changelog
 =========================
 
+* Schema2ldif 1.1
+
+[Fix] Bugs #2831: create a changelog for schema2ldif
+
 * Schema2ldif 1.0
 
 [Fix] Bugs #2282: cn inside schema conversion should not have .schema behind schema name
