@@ -1,6 +1,12 @@
 Schema2ldif changelog
 =========================
 
+* Schema2ldif 1.2
+
+[Fix] Bugs #4572: update and correct BSD license
+[Fix] Bugs #4573: refresh the manpage that have a wrong version number
+[Fix] Bugs #4574: refresh copyright date on schema2ldif
+
 * Schema2ldif 1.1
 
 [Fix] Bugs #2831: create a changelog for schema2ldif
