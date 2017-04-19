@@ -389,7 +389,7 @@ exit 0;
 
 =head1 NAME
 
-ldap-schema-manager - insert schema needed by FusionDirectory into the ldap server
+ldap-schema-manager - manage schema to be inserted into in openldap server in cn=config mode
 
 =head1 SYNOPSIS
 
