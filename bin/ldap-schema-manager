@@ -31,7 +31,7 @@ use warnings;
 use 5.008;
 
 my $ldap_host_options = '-Y EXTERNAL -H ldapi:///';
-my $path              = "/etc/ldap/schema/";
+my $defaultpath       = "/etc/ldap/schema/";
 my $full_cmd          = "";
 my $schema2ldif       = "schema2ldif";
 
@@ -41,12 +41,38 @@ my $schemalist  = 0;
 my $yes_flag    = 0;
 my $pathunset   = 1;
 my $continue    = 0;
+my @schemaargs  = ();
 my @schemas     = ();
 my @gen_files   = ();
 my $delete_ldif = 1;
+
+my $toolname          = $0;
+my @defaultschemas    = ();
+my $defaultschemalist = 0;
+
+my $path        = $defaultpath;
+
 foreach my $arg ( @ARGV ) {
-  if (not defined $ldap_host_options) {
+  if (not defined $defaultpath) {
+    # --default-path
+    $defaultpath = $arg;
+    if ($pathunset) {
+      $path = $defaultpath;
+    } else {
+      usage();
+    }
+  } elsif (not defined $toolname) {
+    # --tool-name
+    $toolname = $arg;
+  } elsif (not defined $ldap_host_options) {
+    # --options
     $ldap_host_options = $arg;
+  } elsif (lc($arg) eq '--tool-name') {
+    undef $toolname;
+  } elsif (lc($arg) eq '--default-path') {
+    undef $defaultpath;
+  } elsif (lc($arg) eq '--default-schemas') {
+    $defaultschemalist = 1;
   } elsif ((lc($arg) eq '-i') || (lc($arg) eq '--insert')) {
     if ($schemalist) {
       usage();
@@ -76,25 +102,14 @@ foreach my $arg ( @ARGV ) {
     $yes_flag = 1;
   } elsif ((lc($arg) eq '-h') || (lc($arg) eq '--help')) {
     usage();
-  } elsif ($schemalist) {
-    if ($arg !~ m|/|) {
-      # add path prefix if not a path
-      $arg = $path.$arg;
-    }
-    if ($arg =~ /^(.*)\.ldif$/) {
-      # ignore ".ldif" if it is there
-      push @schemas, $1;
-    } elsif ($arg =~ /^(.*)\.schema$/) {
-      if (system("$schema2ldif $arg > $1.ldif") == 0) {
-        push @schemas, $1;
-        push @gen_files, $1;
-      } else {
-        push @gen_files, $1;
-        die_with_error("Something went wrong while trying to convert $arg to ldif\n");
-      }
+  } elsif ($defaultschemalist) {
+    if (lc($arg) eq '--end') {
+      $defaultschemalist = 0;
     } else {
-      push @schemas, $arg;
+      push @defaultschemas, $arg;
     }
+  } elsif ($schemalist) {
+    push @schemaargs, $arg;
   } elsif ($pathunset) {
     $path = $arg;
     if ($path !~ m|/$|) {
@@ -108,7 +123,7 @@ foreach my $arg ( @ARGV ) {
 }
 
 # if --options is used with no value
-usage () if (not defined $ldap_host_options);
+usage ('Missing options after --options') if (not defined $ldap_host_options);
 
 # die if user is not "root"
 die_with_error ("! You have to run this script as root\n") if ($<!=0);
@@ -132,6 +147,30 @@ die_with_error ("! $path doesn't seems to exists\n") if (!-e $path);
 my $cnconfig = `$cnconfig_cmd`;
 if (!($cnconfig =~ m/^dn:\s*cn=config$/)) {
   die_with_error ("! This tool is only intended to be with with a cn=config backend, cn=config could not be found in the LDAP");
+}
+
+if (scalar(@schemaargs) == 0) {
+  @schemaargs = @defaultschemas;
+}
+foreach my $arg (@schemaargs) {
+  if ($arg !~ m|/|) {
+    # add path prefix if not a path
+    $arg = $path.$arg;
+  }
+  if ($arg =~ /^(.*)\.ldif$/) {
+    # ignore ".ldif" if it is there
+    push @schemas, $1;
+  } elsif ($arg =~ /^(.*)\.schema$/) {
+    if (system("$schema2ldif $arg > $1.ldif") == 0) {
+      push @schemas, $1;
+      push @gen_files, $1;
+    } else {
+      push @gen_files, $1;
+      die_with_error("Something went wrong while trying to convert $arg to ldif\n");
+    }
+  } else {
+    push @schemas, $arg;
+  }
 }
 
 if (scalar(@schemas) == 0) {
@@ -321,7 +360,7 @@ sub usage
   (@_) && print STDERR "\n@_\n\n";
 
   print STDERR << "EOF";
- usage: $0 [-y] [-n] [-c] [-o options] [path] [-h|-l|-i schema1 schema2|-m schema1 schema2|-e schema1 schema2]
+ usage: $toolname [-y] [-n] [-c] [-o options] [path] [-h|-l|-i schema1 schema2|-m schema1 schema2|-e schema1 schema2]
 
   -h, --help      : this (help) message
   path            : where to find the schemas
@@ -334,7 +373,15 @@ sub usage
   -c, --continue  : continue on error(s)
   -y, --yes       : answer yes to all questions
 
+  Default path is $defaultpath
 EOF
+
+  if (scalar(@defaultschemas) > 0) {
+    print STDERR "  If -i, -m or -e is used but no schemas are given, this list is used instead: ".join(', ',@defaultschemas)."\n";
+  }
+
+  print STDERR "\n";
+
   exit -1;
 }
 
@@ -391,6 +438,25 @@ This option answer yes to all questions. The only question right now is the conf
 
 This option allow you to specify specifics options to give to ldap commands such as ldapmodify,
 but beware that you will not be able to see things like password prompts as the output of these commands is piped.
+
+=back
+
+=head2 Special options
+
+=over 6
+
+=item --tool-name
+
+This option allows you to set the binary name to use in usage output, only useful if you wish to create a tool based upon ldap-schema-manager.
+
+=item --default-path
+
+This option defines the default path, which is otherwise /etc/ldap/schema/
+
+=item --default-schemas
+
+This option specifies the default list of schemas to use in case no schema list is given. Only useful if you create a tool based upon this one.
+The list needs to end with "--end".
 
 =back
 
