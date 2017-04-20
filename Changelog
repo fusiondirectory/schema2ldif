@@ -1,6 +1,10 @@
 Schema2ldif changelog
 =========================
 
+* Schema2ldif 1.3
+
+[Feature] Bugs #5478: We should have a generic tool ldap-schema-manager
+
 * Schema2ldif 1.2
 
 [Fix] Bugs #4572: update and correct BSD license
