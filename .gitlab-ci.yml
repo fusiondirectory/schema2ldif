@@ -1,0 +1,28 @@
+# Specify docker image
+image: debian:stretch
+
+# Define variable to disable SSL verification of GIT
+variables:
+  GIT_SSL_NO_VERIFY: "true"
+
+# Generate perlcritic rapport
+create_perlcritic_rapport:
+  only:
+    - branches
+    - tags
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq libperl-critic-perl
+  script:
+    - perlcritic .
+
+# Perl lint
+create_perl_lint_rapport:
+  only:
+    - branches
+    - tags
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq perl
+  script:
+    - find bin/ -type f -print0 | xargs -0 -n1 perl -cw
