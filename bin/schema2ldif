@@ -122,7 +122,8 @@ Use BRANCH instead of cn=schema,cn=config
 
 =head1 BUGS
 
-Please report any bugs, or post any suggestions, to the fusiondirectory mailing list fusiondirectory-users or to <https://forge.fusiondirectory.org/projects/schema2ldif/issues/new>
+Please report any bugs, or post any suggestions, to the fusiondirectory mailing list users@lists.fusiondirectory.org or to
+<https://gitlab.fusiondirectory.org/fusiondirectory/communication-server/-/issues>
 
 =head1 AUTHOR
 
