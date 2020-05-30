@@ -485,8 +485,8 @@ The list needs to end with "--end".
 
 =head1 BUGS
 
-Please report any bugs, or post any suggestions, to the fusiondirectory mailing list fusiondirectory-users or to
-<https://forge.fusiondirectory.org/projects/schema2ldif/issues/new>
+Please report any bugs, or post any suggestions, to the fusiondirectory mailing list users@lists.fusiondirectory.org or to
+<https://gitlab.fusiondirectory.org/fusiondirectory/communication-server/-/issues>
 
 =head1 AUTHOR
 
@@ -494,11 +494,9 @@ Come Bernigaud
 
 =head1 LICENCE AND COPYRIGHT
 
-This code is part of FusionDirectory <http://www.fusiondirectory.org>
+=over 2
 
-=over 1
-
-=item Copyright (C) 2011-2017 FusionDirectory Project
+=item Copyright (C) 2013-2017 FusionDirectory project
 
 =back
 
