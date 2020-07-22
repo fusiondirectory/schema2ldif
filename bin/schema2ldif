@@ -123,7 +123,7 @@ Use BRANCH instead of cn=schema,cn=config
 =head1 BUGS
 
 Please report any bugs, or post any suggestions, to the fusiondirectory mailing list users@lists.fusiondirectory.org or to
-<https://gitlab.fusiondirectory.org/fusiondirectory/communication-server/-/issues>
+https://gitlab.fusiondirectory.org/fusiondirectory/schema2ldif/-/issues
 
 =head1 AUTHOR
 
