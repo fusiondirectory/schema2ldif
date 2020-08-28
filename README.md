@@ -39,9 +39,17 @@ You can [register on our system][register] and enter issues [Schema2ldif][issues
   be instant but in most channels people are in different time zones.  At times
   chat replies can be in excess of 24hrs.
   
-## Donate
+## Crowfunding
 
-If you like [Schema2ldif][Schema2ldif] and would like to [donate][donate-liberapay] even a small amount you can go to our Liberapay account
+If you like us and want to send us a small contribution you can use the following crowfunding services
+
+* [liberapay] [donate-liberapay]: https://liberapay.com/fusiondirectory/donate
+
+* [kofi][donate-kofi]: https://ko-fi.com/fusiondirectory
+
+* [opencollective][donate-opencollective]: https://opencollective.com/fusiondirectory
+
+* [communitybridge][donate-communitybridge]: https://funding.communitybridge.org/projects/fusiondirectory
   
 ## License
 
@@ -61,3 +69,8 @@ If you like [Schema2ldif][Schema2ldif] and would like to [donate][donate-liberap
 
 [donate-liberapay]: https://liberapay.com/fusiondirectory/donate
 
+[donate-kofi]: https://ko-fi.com/fusiondirectory
+
+[donate-opencollective]: https://opencollective.com/fusiondirectory
+
+[donate-communitybridge]: https://funding.communitybridge.org/projects/fusiondirectory
