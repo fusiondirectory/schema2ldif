@@ -20,7 +20,7 @@ create_perlcritic_rapport:
     - branches
   script:
     - cp bin/ldap-schema-manager bin/ldap-schema-manager.pl
-    - cp bin/schema2ldif bin/bin/schema2ldif.pl
+    - cp bin/schema2ldif bin/schema2ldif.pl
     - perlcritic --quiet --verbose "%f~|~%s~|~%l~|~%c~|~%m~|~%e~|~%p~||~%n" bin
 
 
