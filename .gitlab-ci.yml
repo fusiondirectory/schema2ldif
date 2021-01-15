@@ -1,24 +1,26 @@
-# Specify docker image
-image: debian:stretch
-
-# Generate perlcritic rapport
-create_perlcritic_rapport:
-  only:
-    - branches
-    - tags
-  before_script:
-    - apt-get update -qq
-    - apt-get install -y -qq libperl-critic-perl
-  script:
-    - perlcritic .
+stages:
+  - lint
+  - codestyle
 
 # Perl lint
 create_perl_lint_rapport:
+  image: registry.fusiondirectory.org/fusiondirectory/fd/perlcodestyle:stretch
+  stage: lint
   only:
     - branches
-    - tags
-  before_script:
-    - apt-get update -qq
-    - apt-get install -y -qq perl
   script:
-    - find bin/ -type f -print0 | xargs -0 -n1 perl -cw
+    - perl -cW bin/ldap-schema-manager
+    - perl -cW bin/schema2ldif
+
+# Generate perlcritic rapport
+create_perlcritic_rapport:
+  image: registry.fusiondirectory.org/fusiondirectory/fd/perlcodestyle:stretch
+  stage: codestyle
+  only:
+    - branches
+  script:
+    - cp bin/ldap-schema-manager bin/ldap-schema-manager.pl
+    - cp bin/schema2ldif bin/bin/schema2ldif.pl
+    - perlcritic --quiet --verbose "%f~|~%s~|~%l~|~%c~|~%m~|~%e~|~%p~||~%n" bin
+
+
