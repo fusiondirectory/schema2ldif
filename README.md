@@ -1,21 +1,25 @@
 # Schema2ldif
 
-[Schema2ldif][Schema2ldif] Utilities to manage schema in .schema and .ldif format.
+[Schema2ldif][Schema2ldif] is an Utility to manage schema in .schema and .ldif format.
 
 
 ## Features
 
 The project consists of two utilities :
 
-* schema2ldif : this tool allows to convert a file.schema to file.ldif necessary to insert it in an openldap server.
+* schema2ldif : this tool allows to convert a file.schema to file.ldif necessary to insert it in an OpenLDAP server.
 
-* ldap-schema-manager : this tool is useful for managing schemas in an openldap directory in an easy way
+* ldap-schema-manager : this tool is useful for managing schemas in an OpenLDAP server in an easy way
 
-  * insertion
-  * modification
-  * listing of schemas
-  * erasure
-  * and other management functionalities
+  * Insertion
+  * Modification
+  * Listing of schemas
+  * Deletion
+  * And other management functionalities
+
+## Installation and upgrade of schema2ldif
+
+The installation and upgrade information is available on [Install Schema2ldif][schema2ldif-install]
 
 ## Get help
 
@@ -43,19 +47,21 @@ You can [register on our system][register] and enter issues [Schema2ldif][issues
 
 If you like us and want to send us a small contribution you can use the following crowfunding services
 
-* [liberapay] [donate-liberapay]: https://liberapay.com/fusiondirectory/donate
+* [donate-liberapay]
 
-* [kofi][donate-kofi]: https://ko-fi.com/fusiondirectory
+* [donate-kofi]
 
-* [opencollective][donate-opencollective]: https://opencollective.com/fusiondirectory
+* [donate-opencollective]
 
-* [communitybridge][donate-communitybridge]: https://funding.communitybridge.org/projects/fusiondirectory
+* [donate-communitybridge]
   
 ## License
 
 [Schema2ldif][Schema2ldif] is  [BSD 3-clause](LICENSE).
 
 [Schema2ldif]: https://www.fusiondirectory.org/schema2ldif
+
+[schema2ldif-install]: https://fusiondirectory-user-manual.readthedocs.io/en/1.3/schema2ldif/index.html
 
 [get help]: https://www.fusiondirectory.org/en/communaute/
 
@@ -74,3 +80,4 @@ If you like us and want to send us a small contribution you can use the followin
 [donate-opencollective]: https://opencollective.com/fusiondirectory
 
 [donate-communitybridge]: https://funding.communitybridge.org/projects/fusiondirectory
+
