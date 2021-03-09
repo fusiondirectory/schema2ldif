@@ -1,7 +1,8 @@
 stages:
   - lint
   - codestyle
-
+  - tarballs
+  
 # Perl lint
 create_perl_lint_rapport:
   image: registry.fusiondirectory.org/fusiondirectory/fd/perlcodestyle:stretch
@@ -23,4 +24,17 @@ create_perlcritic_rapport:
     - cp bin/schema2ldif bin/schema2ldif.pl
     - perlcritic --quiet --verbose "%f~|~%s~|~%l~|~%c~|~%m~|~%e~|~%p~||~%n" bin
 
+build-tarballs:
+  stage: tarballs
+  only:
+    - master
+  script:
+    - release="$(grep '%' Changelog.md | head -n1 | cut -d ' ' -f3 | tr -d '"')"
+    - mkdir ../schema2ldif-$release/
+    - mv ./* ../schema2ldif-$release/
+    - mv  ../schema2ldif-$release/ ./
+    - tar -cvzf schema2ldif-$release.tar.gz *
+  artifacts:
+    paths:
+    - schema2ldif-*.tar.gz
 
