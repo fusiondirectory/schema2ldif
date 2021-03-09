@@ -27,7 +27,7 @@ create_perlcritic_rapport:
 build-tarballs:
   stage: tarballs
   only:
-    - master
+    - /^1.*$/
   script:
     - release="$(grep '%' Changelog.md | head -n1 | cut -d ' ' -f3 | tr -d '"')"
     - mkdir ../schema2ldif-$release/
