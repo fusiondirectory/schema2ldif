@@ -29,7 +29,7 @@ build-tarballs:
   only:
     - /^1.*$/
   script:
-    - release="$(grep '%' Changelog.md | head -n1 | cut -d ' ' -f3 | tr -d '"')"
+    - release=1.3.1
     - mkdir ../schema2ldif-$release/
     - mv ./* ../schema2ldif-$release/
     - mv  ../schema2ldif-$release/ ./
@@ -37,4 +37,6 @@ build-tarballs:
   artifacts:
     paths:
     - schema2ldif-*.tar.gz
+    expire_in: 30d
+
 
