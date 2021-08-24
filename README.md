@@ -43,8 +43,6 @@ Choose the plan that's right for you. Our subscriptions are flexible and scalabl
 
 The subscription period is one year from the date of purchase and gives you access to the extensive infrastructure of enterprise-class software and services.
 
-You can [register on our system][register] and enter issues [Schema2ldif][issues]
-
 ## IRC Etiquette
 
 * If we don't answer right away then just hang out in the channel.  Someone will
@@ -80,12 +78,6 @@ If you like us and want to send us a small contribution you can use the followin
 [subscription-fusiondirectory]: https://www.fusiondirectory.org/en/subscription-fusiondirectory/
 
 [subscription-fusiondirectory-plus]: https://www.fusiondirectory.org/en/subscriptions-fusiondirectory-plus/
-
-[register]: https://register.fusiondirectory.org
-
-[issues]: https://gitlab.fusiondirectory.org/fusiondirectory/schema2ldif/-/issues
-
-[issues-github]: https://github.com/fusiondirectory/schema2ldif/issues
 
 [donate-liberapay]: https://liberapay.com/fusiondirectory/donate
 
