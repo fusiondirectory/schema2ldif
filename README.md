@@ -86,4 +86,3 @@ If you like us and want to send us a small contribution you can use the followin
 [donate-opencollective]: https://opencollective.com/fusiondirectory
 
 [donate-communitybridge]: https://funding.communitybridge.org/projects/fusiondirectory
-
