@@ -1,12 +1,8 @@
 # Contributing to FusionDirectory projects
 
-:tada: First off, thanks for taking the time to contribute!
-
-> «Here's a list of our guidelines, If you want to share a best practice, or think one of these guidelines should be removed, feel free to share it with us.»
-
 ## Table Of Contents
 
-1. [TL;DR](#tldr)
+1. [Welcome](#Welcome)
 2. [Code of Conduct](#code-of-conduct)
 3. [I just have a question!](#i-just-have-a-question)
 4. [How Can I Contribute?](#how-can-i-contribute)
@@ -15,42 +11,16 @@
     * [Your Awesome And Mighty Codes Contributions](#your-awesome-and-mighty-codes-contributions)
 5. [Coding with style](#coding-with-style)
     * [Git Commit Messages](#git-commit-messages)
-    * [PHP Style Guide](#php-style-guide
 6. [Licensing](#licensing)
 
 ---
-## TL;DR
+## Welcome
 
-You're so excited to contribute that you do not have time to read the entire document. Here you will find some keys to quickly and safety contribute. :wink:
+> «Here's a list of our guidelines, If you want to share a best practice, or think one of these guidelines should be removed, feel free to share it with us.»
 
-1. [Our communication Channels](https://www.fusiondirectory.org/contact-us/). Feel free to discuss with us.
-2. Just be cool and respectful with others
-3. create an FusionDirectory project account at [FusionDirectory Sign UP](https://register.fusiondirectory.org)
-4. Use our `PHP CodeSniffer <http://pear.php.net/package/PHP_CodeSniffer>`_ rules to check code compliance [CodeSniffer](https://fusiondirectory-developer-documentation.readthedocs.io/en/latest/codingstandards.html#checking-standards)
-5. Your code should be tested
-6. Respect this simple commit message template
+:tada: First off, thanks for taking the time to contribute!
 
-```
-<emoji> <type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
-```
-
-The **header** is mandatory and the **scope** of the header is optional.
-
-Where type can be :
-  * **feat**:  A new feature
-  * **fix**: A bug fix
-  * **core**: Code for the Core
-  * **docs**: Documenting the code or writing new documentation
-  * **style**: Cosmetics purpose
-  * **test**: Adding missing or correcting tests
-7. For the subject, use the present tense ("Add feature" not "Added feature")
-8. Should be submitted through [FusionDirectory gitlab](https://gitlab.fusiondirectory.org) via a pull request on the 1.x-dev branch.
-
-Now, if you want to go further, sit comfortably at the fireplace, grab your glasses and immerse yourself in our documentation.
+Now, sit comfortably at the fireplace, grab your glasses and immerse yourself in our documentation.
 
 ## Code Of Conduct
 
@@ -76,51 +46,59 @@ To create a FusionDirectory project Account you must go to
 
 * [FusionDirectory Sign UP](https://register.fusiondirectory.org)
 
-### Put FusionDirectory in debug mode
-
-* Go into FusionDirectory configuration
-* Activate the displaying of PHP errors, and the TRACE debug level
 
 ### Finding Wonderful Bugs
 
 >This section guides you through submitting a bug report. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
-When you are creating a bug report, please include as many details as possible. Fill out the required template, the information it asks for helps us resolve issues faster. We have a [template](Bugs.md) to create issues. Please use this template.
+When you are creating a bug report, please include as many details as possible. Fill out the **Bugs** template to create issues, the information it asks for helps us resolve issues faster.
 
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
 * **Use a clear and descriptive title** for the issue to identify the problem.
-* **Describe the exact steps which reproduce the problem** in as many details as possible. For example, start by explaining wich brower and it's version. When listing steps, don't just say what you did, but explain how you did it. For example, if you moved the cursor to the end of an input, explain if you used the mouse, or a keyboard.
+* **Describe the exact steps which reproduce the problem** in as many details as possible.
 * **Describe the behavior** you observed after following the steps and point out what exactly is the problem with that behavior.
 * **Explain which behavior** you expected to see instead and why.
 * **Include screenshots and animated GIFs** which show you following the described steps and clearly demonstrate the problem. You can use [this tool](http://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and this tool or [this tool](https://github.com/GNOME/byzanz) on Linux.
-* **Include the PHP errors and trace** collected at the debug step above
+* **Include the Perl errors and trace** collected at the debug step above
 * **If the problem is linked to a specific LDAP entry** attach its LDAP dump.
+
+Fill in a report on :
+
+* [Schema2ldif](https://gitlab.fusiondirectory.org/fusiondirectory/schema2ldif/-/issues)
 
 ### Any Feedback To Enhance FusionDirectory
 
 >This section guides you through submitting an enhancement suggestion, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
 
-Fill in [the template](Bugs.md), including the steps that you imagine you would take if the feature you're requesting existed.
-Enhancement suggestions are tracked on [FusionDirectory](https://gitlab.fusiondirectory.org/fusiondirectory/fd/issues) for the core program, and 
-[FusionDirectory Plugins](https://gitlab.fusiondirectory.org/fusiondirectory/fd-plugins/issues) for plugins.
 
-After you've determined which repository your enhancement suggestion is related to, create an issue on that repository and provide the following information:
+When you are creating a enhancement report, please include as many details as possible. Fill out the **Enhancement** template to create thoses issues, the information it asks for helps us resolve issues faster.
+
+
+* [Schema2ldif](https://gitlab.fusiondirectory.org/fusiondirectory/schema2ldif/-/issues)
 
 * **Use a clear and descriptive title** for the issue to identify the suggestion.
 * **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
 * **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
 * **Include screenshots and animated GIFs** which help you demonstrate the steps which the suggestion is related to. You can use [this tool](http://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
-* **Explain why this enhancement would be useful** to most FusionDirectory users.
+* **Explain why this enhancement would be useful** to most schema2ldif users.
 
 ### Your awesome And Mighty Codes Contributions
+
 >This section guides you through submitting an enhancement suggestion, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
 
-* Fill in [the required template](Merge.md)
-* Include screenshots and animated GIFs in your pull request whenever possible.
-* Follow the [Coding standards](https://fusiondirectory-developer-documentation.readthedocs.io/en/latest/codingstandards.html#coding-standards)
-* Use our `PHP CodeSniffer <http://pear.php.net/package/PHP_CodeSniffer>`_ rules to check code compliance [CodeSniffer](https://fusiondirectory-developer-documentation.readthedocs.io/en/latest/codingstandards.html#checking-standards)
-* End all files with a newline
+When you are contributing a new fonctionnality please include as many details as possible.
+
+Fill out the **Contribution** template to create thoses issues, the information it asks for helps us resolve issues faster.
+
+* [Schema2ldif](https://gitlab.fusiondirectory.org/fusiondirectory/schema2ldif/-/issues)
+
+
+* **Use a clear and descriptive title** for the issue to identify your contribution
+* **Provide a step-by-step description of the contribution** in as many details as possible.
+* **Include screenshots and animated GIFs** which help you demonstrate what this contribution is about. You can use [this tool](http://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
+* **Explain why this contribution would be useful** to most Argonaut users.
+* **Run** [Perl critic](https://metacpan.org/pod/Perl::Critic) on your code.
 
 ## Coding with style
 
@@ -159,6 +137,14 @@ Each commit message consists of a **header**, a **body** and a **footer**.  The 
 
 The **header** is mandatory and the **scope** of the header is optional.
 
+Where type can be :
+  * **feat**:  A new feature
+  * **fix**: A bug fix
+  * **core**: Code for the Core
+  * **docs**: Documenting the code or writing new documentation
+  * **style**: Cosmetics purpose
+  * **test**: Adding missing or correcting tests
+
 Examples:
 
 ```
@@ -168,10 +154,6 @@ supannRefId on Structure object is too small and mono valued
 
 close #5685
 ```
-
-### PHP style Guide
-
-To be sure to respect our guidelines, read [Coding standards](https://fusiondirectory-developer-documentation.readthedocs.io/en/latest/codingstandards.html#coding-standards)
 
 ## Licensing
 
